@@ -1,21 +1,34 @@
-export default function initTabNav() {
-  const section = document.querySelector("[data-tab='menu']");
-  const tabContent = document.querySelectorAll("[data-tab='content'] section");
-  const classe = "ativo";
-  add(0);
-  function handleScroll() {
-    const tamahoImg = section.querySelectorAll("li")[0].clientHeight;
-    let index = Math.round(section.scrollTop / tamahoImg);
-    remove();
-    add(index);
+export default class TabNav {
+  constructor(seletorMenu, seletorConteudo) {
+    this.section = document.querySelector(seletorMenu);
+    this.tabContent = document.querySelectorAll(seletorConteudo);
+    this.classe = "ativo";
   }
-  section.addEventListener("scroll", handleScroll);
 
-  function remove() {
-    tabContent.forEach((l) => l.classList.remove(classe));
+  init() {
+    if (this.section && this.tabContent) {
+      this.addClass(0);
+      this.addEventScroll();
+    }
   }
-  function add(index) {
-    const direcao = tabContent[index].dataset.anime;
-    tabContent[index].classList.add(classe, direcao);
+
+  addClass(index) {
+    const direcao = this.tabContent[index].dataset.anime;
+    this.tabContent[index].classList.add(this.classe, direcao);
+  }
+
+  addEventScroll() {
+    this.section.addEventListener("scroll", () => this.handleScroll());
+  }
+
+  handleScroll() {
+    const tamahoImg = this.section.querySelectorAll("li")[0].clientHeight;
+    let index = Math.round(this.section.scrollTop / tamahoImg);
+    this.removeClass();
+    this.addClass(index);
+  }
+
+  removeClass() {
+    this.tabContent.forEach((l) => l.classList.remove(this.classe));
   }
 }
