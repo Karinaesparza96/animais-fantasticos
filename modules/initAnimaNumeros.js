@@ -1,32 +1,46 @@
-export default function initAnimaNumeros() {
-  const spans = document.querySelectorAll(".numeros-grid span");
-  const section = document.querySelector(".numeros");
+export default class AnimaNumeros {
+  constructor(numeros, observerTarget, observerClass) {
+    this.numeros = document.querySelectorAll(numeros);
+    this.observerTarget = document.querySelector(observerTarget)
+    this.observerClass = observerClass;
+    this.handleMutation = this.handleMutation.bind(this)
+  }
 
-  const observer = new MutationObserver(handleMutation);
-  observer.observe(section, { attributes: true });
+  init() {
+    this.addMutationObserver();
+    return this;
+  }
 
-  function handleMutation(event) {
-    if (event[0].target.classList.contains("ativo")) {
-      observer.disconnect();
-      animaNumeros();
+  addMutationObserver() {
+    this.observer = new MutationObserver(this.handleMutation);
+    this.observer.observe(this.observerTarget, { attributes: true })
+  }
+
+  handleMutation(event) {
+    debugger
+    if (event[0].target.classList.contains(this.observerClass)) {
+      this.observer.disconnect();
+      this.animaNumeros();
     }
   }
 
-  function animaNumeros() {
-    spans.forEach((span) => {
-      const numero = +span.innerText;
-      const incremento = Math.floor(numero / 100);
-      let start = 0;
+  animaNumeros() {
+    this.numeros.forEach(n => this.constructor.incrementarNumero(n));
+  }
 
-      const timer = setInterval(() => {
-        start += incremento;
-        span.innerText = start;
+  static incrementarNumero(numeroElement) {
+    const numero = +numeroElement.innerText;
+    const incremento = Math.floor(numero / 100);
+    let start = 0;
 
-        if (start > numero) {
-          span.innerText = numero;
-          clearInterval(timer);
-        }
-      }, 25);
-    });
+    const timer = setInterval(() => {
+      start += incremento;
+      numeroElement.innerText = start;
+
+      if (start > numero) {
+        numeroElement.innerText = numero;
+        clearInterval(timer);
+      }
+    }, 25);
   }
 }
