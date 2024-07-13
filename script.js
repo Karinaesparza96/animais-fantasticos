@@ -2,7 +2,6 @@ import TabNav from "./modules/initTabNav.js";
 import Accordion from "./modules/initAccordion.js";
 import ScrollSuave from "./modules/ScrollSuave.js";
 import initAnimacaoScroll from "./modules/initAnimacaoScroll.js";
-import initToolTip from "./modules/initTooltip.js";
 import initDropdownMenu from "./modules/initDropdownMenu.js";
 import initMenuMobile from "./modules/initMenuMobile.js";
 import initFuncionamento from "./modules/initFuncionamento.js";
