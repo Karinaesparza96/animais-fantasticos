@@ -9,6 +9,7 @@ import initFuncionamento from "./modules/initFuncionamento.js";
 import initFetchAnimais from "./modules/fetchAnimais.js";
 import initFetchBitcoin from "./modules/fetchBitcoin.js";
 import Modal from "./modules/modal.js";
+import ToolTip from "./modules/initTooltip.js";
 
 const scrollSuave = new ScrollSuave('[data-menu="list"] a[href^="#"]');
 scrollSuave.init();
@@ -21,8 +22,11 @@ tabNav.init();
 
 const modal = new Modal('[data-modal="abrir"]', '[data-modal="fechar"', '[data-modal="container"');
 modal.init();
+
+const tooltip = new ToolTip("[data-tooltip]")
+tooltip.init();
+
 initAnimacaoScroll();
-initToolTip();
 initDropdownMenu();
 initMenuMobile();
 initFuncionamento();
