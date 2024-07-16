@@ -17,7 +17,6 @@ export default class AnimaNumeros {
   }
 
   handleMutation(event) {
-    debugger
     if (event[0].target.classList.contains(this.observerClass)) {
       this.observer.disconnect();
       this.animaNumeros();
